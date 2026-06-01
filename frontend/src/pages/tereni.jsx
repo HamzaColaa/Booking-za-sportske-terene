@@ -2,53 +2,12 @@ import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 
-const MOCK_TERENI = [
-  {
-    id: 1,
-    naziv: 'Zlatni Teren Otoka',
-    sport: 'Fudbal',
-    cijena: 40,
-    lokacija: 'Sarajevo - Otoka',
-    slika: '/images/teren1.jpg'
-  },
-  {
-    id: 2,
-    naziv: 'Premium Arena Skenderija',
-    sport: 'Košarka',
-    cijena: 35,
-    lokacija: 'Sarajevo - Centar',
-    slika: '/images/teren2.jpg'
-  },
-  {
-    id: 3,
-    naziv: 'Olimpijski Zemljani Teren',
-    sport: 'Tenis',
-    cijena: 25,
-    lokacija: 'Sarajevo - Koševo',
-    slika: '/images/teren3.jpg'
-  },
-  {
-    id: 4,
-    naziv: 'Sportski Centar Ilidža',
-    sport: 'Fudbal',
-    cijena: 50,
-    lokacija: 'Sarajevo - Ilidža',
-    slika: '/images/teren4.jpg'
-  },
-  {
-    id: 5,
-    naziv: 'Vistafon Park',
-    sport: 'Košarka',
-    cijena: 30,
-    lokacija: 'Sarajevo - Otoka',
-    slika: '/images/teren5.jpg'
-  }
-];
-
 export default function Tereni() {
   const { user } = useAuth();
   const navigate = useNavigate();
 
+  // Držanje pravih podataka iz db.json u state-u umjesto mockova
+  const [tereniIzBaze, setTereniIzBaze] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const [odabraniSport, setOdabraniSport] = useState('Svi');
@@ -58,18 +17,25 @@ export default function Tereni() {
   const [success, setSuccess] = useState(false);
   const [errorPoruka, setErrorPoruka] = useState('');
 
+  // Dohvatanje podataka sa json-servera prilikom učitavanja stranice
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 1200);
-
-    return () => clearTimeout(timer);
+    fetch('http://localhost:5000/tereni')
+      .then((res) => res.json())
+      .then((data) => {
+        setTereniIzBaze(data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error('Greška pri učitavanju terena:', err);
+        setLoading(false);
+      });
   }, []);
 
+  // Filtriranje koristi prave podatke povučene iz baze
   const filtriraniTereni =
     odabraniSport === 'Svi'
-      ? MOCK_TERENI
-      : MOCK_TERENI.filter((t) => t.sport === odabraniSport);
+      ? tereniIzBaze
+      : tereniIzBaze.filter((t) => t.sport === odabraniSport);
 
   const pokreniRezervaciju = (teren) => {
     if (!user) {

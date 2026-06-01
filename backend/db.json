@@ -2,21 +2,43 @@
   "tereni": [
     {
       "id": "1",
-      "naziv": "Mali nogomet - Otoka",
-      "sport": "Nogomet",
-      "cijena": "50 KM/h"
+      "naziv": "Zlatni Teren Otoka",
+      "sport": "Fudbal",
+      "cijena": 40,
+      "lokacija": "Sarajevo - Otoka",
+      "slika": "/images/teren1.jpg"
     },
     {
       "id": "2",
-      "naziv": "Tenis - Zetra",
-      "sport": "Tenis",
-      "cijena": "30 KM/h"
+      "naziv": "Premium Arena Skenderija",
+      "sport": "Košarka",
+      "cijena": 35,
+      "lokacija": "Sarajevo - Centar",
+      "slika": "/images/teren2.jpg"
     },
     {
       "id": "3",
-      "naziv": "Košarka - Skenderija",
+      "naziv": "Olimpijski Zemljani Teren",
+      "sport": "Tenis",
+      "cijena": 25,
+      "lokacija": "Sarajevo - Koševo",
+      "slika": "/images/teren3.jpg"
+    },
+    {
+      "id": "4",
+      "naziv": "Sportski Centar Ilidža",
+      "sport": "Fudbal",
+      "cijena": 50,
+      "lokacija": "Sarajevo - Ilidža",
+      "slika": "/images/teren4.jpg"
+    },
+    {
+      "id": "5",
+      "naziv": "Vistafon Park",
       "sport": "Košarka",
-      "cijena": "40 KM/h"
+      "cijena": 30,
+      "lokacija": "Sarajevo - Otoka",
+      "slika": "/images/teren5.jpg"
     }
   ],
   "poruke": [
