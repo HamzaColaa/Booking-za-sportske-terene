@@ -24,7 +24,7 @@ export default function Prijava() {
       return;
     }
 
-    fetch(`/api/korisnici?email=${email}&password=${password}`)
+    fetch(`http://localhost:5000/korisnici?email=${email}&password=${password}`)
       .then(res => res.json())
       .then(data => {
         if (data.length > 0) {
