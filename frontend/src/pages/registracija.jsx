@@ -38,7 +38,7 @@ export default function Registracija() {
         role: 'Guest' 
       };
 
-      fetch('http://localhost:5000/korisnici', {
+      fetch('/api/korisnici', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(noviKorisnik)

@@ -93,7 +93,7 @@ export default function Tereni() {
     }
 
     fetch(
-      `http://localhost:5000/rezervacije?terenNaziv=${encodeURIComponent(
+      `/api/rezervacije?terenNaziv=${encodeURIComponent(
         terenZaRezervaciju.naziv
       )}&datum=${datum}&vrijeme=${encodeURIComponent(vrijeme)}`
     )
@@ -113,7 +113,7 @@ export default function Tereni() {
             ukupnoPlatiti: terenZaRezervaciju.cijena + ' KM'
           };
 
-          fetch('http://localhost:5000/rezervacije', {
+          fetch('/api/rezervacije', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
