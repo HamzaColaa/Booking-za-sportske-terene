@@ -1,0 +1,88 @@
+{
+  "tereni": [
+    {
+      "id": "1",
+      "naziv": "Mali nogomet - Otoka",
+      "sport": "Nogomet",
+      "cijena": "50 KM/h"
+    },
+    {
+      "id": "2",
+      "naziv": "Tenis - Zetra",
+      "sport": "Tenis",
+      "cijena": "30 KM/h"
+    },
+    {
+      "id": "3",
+      "naziv": "Košarka - Skenderija",
+      "sport": "Košarka",
+      "cijena": "40 KM/h"
+    }
+  ],
+  "poruke": [
+    {
+      "ime": "Kenan Colakovic",
+      "email": "kenancolakovic0@gmail.com",
+      "predmet": "Upit za termin",
+      "poruka": "Lp posto para ",
+      "id": "pqFxFh1em78"
+    }
+  ],
+  "korisnici": [
+    {
+      "ime": "Hamza Colakovic",
+      "email": "hamza.colaa@gmail.com",
+      "password": "lapimezajaja",
+      "role": "Guest",
+      "id": "-fiIt_CB7gU"
+    }
+  ],
+  "rezervacije": [
+    {
+      "korisnikEmail": "hamza.colaa@gmail.com",
+      "terenNaziv": "Premium Arena Skenderija",
+      "sport": "Košarka",
+      "datum": "2027-11-20",
+      "vrijeme": "12:00 - 13:00",
+      "ukupnoPlatiti": "35 KM",
+      "id": "oOAlv2d6arY"
+    },
+    {
+      "korisnikEmail": "hamza.colaa@gmail.com",
+      "terenNaziv": "Zlatni Teren Otoka",
+      "sport": "Fudbal",
+      "datum": "2026-05-25",
+      "vrijeme": "20:00 - 21:00",
+      "ukupnoPlatiti": "40 KM",
+      "id": "PX4UpkWGHHY"
+    },
+    {
+      "korisnikEmail": "hamza.colaa@gmail.com",
+      "terenNaziv": "Sportski Centar Ilidža",
+      "sport": "Fudbal",
+      "datum": "2026-05-25",
+      "vrijeme": "20:00 - 21:00",
+      "ukupnoPlatiti": "50 KM",
+      "id": "HMVCCFy0Ulk"
+    },
+    {
+      "korisnikEmail": "hamza.colaa@gmail.com",
+      "terenNaziv": "Premium Arena Skenderija",
+      "sport": "Košarka",
+      "datum": "2026-06-02",
+      "vrijeme": "20:00 - 21:00",
+      "ukupnoPlatiti": "35 KM",
+      "id": "9_aTolsZ_SU"
+    },
+    {
+      "korisnikEmail": "hamza.colaa@gmail.com",
+      "terenNaziv": "Premium Arena Skenderija",
+      "sport": "Košarka",
+      "datum": "2026-06-05",
+      "vrijeme": "12:00 - 13:00",
+      "ukupnoPlatiti": "35 KM",
+      "id": "nIG3cg9USrU"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}
