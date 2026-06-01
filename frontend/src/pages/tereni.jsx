@@ -2,6 +2,15 @@ import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 
+// 🚀 POMOĆNI BACKUP NIZ DA VERCEL NE BUDE PRAZAN
+const BACKUP_TERENI = [
+  { id: "1", naziv: 'Zlatni Teren Otoka', sport: 'Fudbal', cijena: 40, lokacija: 'Sarajevo - Otoka', slika: 'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?q=80&w=500' },
+  { id: "2", naziv: 'Premium Arena Skenderija', sport: 'Košarka', cijena: 35, lokacija: 'Sarajevo - Centar', slika: 'https://images.unsplash.com/photo-1546519638-68e109498ffc?q=80&w=500' },
+  { id: "3", naziv: 'Olimpijski Zemljani Teren', sport: 'Tenis', cijena: 25, lokacija: 'Sarajevo - Koševo', slika: 'https://images.unsplash.com/photo-1595435934249-5df7ed86e1c0?q=80&w=500' },
+  { id: "4", naziv: 'Sportski Centar Ilidža', sport: 'Fudbal', cijena: 50, lokacija: 'Sarajevo - Ilidža', slika: 'https://images.unsplash.com/photo-1575361204480-aadea25e6e68?q=80&w=500' },
+  { id: "5", naziv: 'Vistafon Park', sport: 'Košarka', cijena: 30, lokacija: 'Sarajevo - Otoka', slika: 'https://images.unsplash.com/photo-1519766304817-4f37bda74a27?q=80&w=500' }
+];
+
 export default function Tereni() {
   const { user } = useAuth();
   const navigate = useNavigate();
@@ -17,21 +26,28 @@ export default function Tereni() {
   const [success, setSuccess] = useState(false);
   const [errorPoruka, setErrorPoruka] = useState('');
 
-  // Dohvatanje podataka sa json-servera prilikom učitavanja stranice
+  // Pametno dohvatanje podataka: Localhost vs Vercel
   useEffect(() => {
-    fetch('http://localhost:5000/tereni')
-      .then((res) => res.json())
-      .then((data) => {
-        setTereniIzBaze(data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.error('Greška pri učitavanju terena:', err);
-        setLoading(false);
-      });
+    if (window.location.hostname === 'localhost') {
+      fetch('http://localhost:5000/tereni')
+        .then((res) => res.json())
+        .then((data) => {
+          setTereniIzBaze(data);
+          setLoading(false);
+        })
+        .catch((err) => {
+          console.error('Greška pri učitavanju terena:', err);
+          setTereniIzBaze(BACKUP_TERENI); // Fallback ako json-server nije upaljen lokalno
+          setLoading(false);
+        });
+    } else {
+      // Ako smo na Vercelu, odmah ubaci backup da stranica ne bude prazna
+      setTereniIzBaze(BACKUP_TERENI);
+      setLoading(false);
+    }
   }, []);
 
-  // Filtriranje koristi prave podatke povučene iz baze
+  // Filtriranje koristi prave podatke povučene iz baze ili backupa
   const filtriraniTereni =
     odabraniSport === 'Svi'
       ? tereniIzBaze
@@ -50,7 +66,6 @@ export default function Tereni() {
 
   const PotvrdiRezervaciju = (e) => {
     e.preventDefault();
-
     setErrorPoruka('');
 
     if (!datum || !vrijeme) {
@@ -58,6 +73,19 @@ export default function Tereni() {
       return;
     }
 
+    // Na Vercelu simuliramo uspješnu rezervaciju jer nemamo pravi API
+    if (window.location.hostname !== 'localhost') {
+      setSuccess(true);
+      setTimeout(() => {
+        setSuccess(false);
+        setTerenZaRezervaciju(null);
+        setDatum('');
+        setVrijeme('');
+      }, 2500);
+      return;
+    }
+
+    // Regularni kod za lokalni json-server
     fetch(
       `http://localhost:5000/rezervacije?terenNaziv=${encodeURIComponent(
         terenZaRezervaciju.naziv
@@ -88,7 +116,6 @@ export default function Tereni() {
           }).then((res) => {
             if (res.ok) {
               setSuccess(true);
-
               setTimeout(() => {
                 setSuccess(false);
                 setTerenZaRezervaciju(null);
@@ -117,13 +144,10 @@ export default function Tereni() {
 
       {/* HERO */}
       <div className="relative overflow-hidden rounded-3xl bg-slate-950 p-10 md:p-14 mb-12 text-white">
-
         <div className="absolute top-0 right-0 w-80 h-80 bg-emerald-500/20 blur-[140px]" />
-
         <h1 className="text-4xl md:text-6xl font-black mb-4 relative z-10">
           Rezerviši teren za svoju ekipu
         </h1>
-
         <p className="text-slate-300 text-lg relative z-10">
           Fudbal • Košarka • Tenis
         </p>
@@ -133,12 +157,10 @@ export default function Tereni() {
             <p className="text-3xl font-black">50+</p>
             <p className="text-slate-400">Rezervacija</p>
           </div>
-
           <div>
             <p className="text-3xl font-black">5</p>
             <p className="text-slate-400">Terena</p>
           </div>
-
           <div>
             <p className="text-3xl font-black">24/7</p>
             <p className="text-slate-400">Dostupnost</p>
@@ -176,9 +198,7 @@ export default function Tereni() {
                 alt={teren.naziv}
                 className="w-full h-full object-cover hover:scale-110 transition duration-500"
               />
-
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
-
               <div className="absolute bottom-4 left-4">
                 <span className="bg-emerald-500 text-white text-xs font-bold px-3 py-1 rounded-full">
                   {teren.sport}
@@ -187,12 +207,10 @@ export default function Tereni() {
             </div>
 
             <div className="p-6">
-
               <div className="flex gap-2 mb-4">
                 <span className="bg-emerald-50 text-emerald-600 text-xs font-bold px-3 py-1 rounded-full">
                   Dostupan
                 </span>
-
                 <span className="bg-slate-100 text-slate-600 text-xs font-bold px-3 py-1 rounded-full">
                   Premium
                 </span>
@@ -201,7 +219,6 @@ export default function Tereni() {
               <h3 className="text-2xl font-black text-slate-900">
                 {teren.naziv}
               </h3>
-
               <p className="text-slate-500 mt-2">
                 📍 {teren.lokacija}
               </p>
@@ -211,7 +228,6 @@ export default function Tereni() {
                   <span className="text-slate-400 font-semibold text-sm">
                     Cijena po satu
                   </span>
-
                   <span className="text-2xl font-black text-emerald-600">
                     {teren.cijena} KM
                   </span>
@@ -232,13 +248,10 @@ export default function Tereni() {
       {/* MODAL */}
       {terenZaRezervaciju && (
         <div className="fixed inset-0 bg-slate-900/70 backdrop-blur-sm flex justify-center items-center p-4 z-50">
-
           <div className="bg-white rounded-3xl p-8 max-w-md w-full shadow-2xl border border-slate-100">
-
             <h3 className="text-2xl font-black text-slate-900">
               Rezervacija Terena
             </h3>
-
             <p className="text-slate-500 mt-1 mb-6">
               {terenZaRezervaciju.naziv}
             </p>
@@ -255,7 +268,6 @@ export default function Tereni() {
               </div>
             ) : (
               <form onSubmit={PotvrdiRezervaciju} className="space-y-4">
-
                 <input
                   type="date"
                   value={datum}
@@ -283,10 +295,8 @@ export default function Tereni() {
                       {user?.email}
                     </span>
                   </div>
-
                   <div className="flex justify-between mt-3 pt-3 border-t">
                     <span>Ukupno</span>
-
                     <span className="font-black text-emerald-600">
                       {terenZaRezervaciju.cijena} KM
                     </span>
@@ -301,7 +311,6 @@ export default function Tereni() {
                   >
                     Nazad
                   </button>
-
                   <button
                     type="submit"
                     className="w-2/3 bg-emerald-600 text-white py-3 rounded-xl font-bold"
@@ -309,7 +318,6 @@ export default function Tereni() {
                     Potvrdi Rezervaciju
                   </button>
                 </div>
-
               </form>
             )}
           </div>
