@@ -4,11 +4,11 @@ import { useNavigate } from 'react-router-dom';
 
 // 🚀 POMOĆNI BACKUP NIZ DA VERCEL NE BUDE PRAZAN
 const BACKUP_TERENI = [
-  { id: "1", naziv: 'Zlatni Teren Otoka', sport: 'Fudbal', cijena: 40, lokacija: 'Sarajevo - Otoka', slika: 'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?q=80&w=500' },
-  { id: "2", naziv: 'Premium Arena Skenderija', sport: 'Košarka', cijena: 35, lokacija: 'Sarajevo - Centar', slika: 'https://images.unsplash.com/photo-1546519638-68e109498ffc?q=80&w=500' },
-  { id: "3", naziv: 'Olimpijski Zemljani Teren', sport: 'Tenis', cijena: 25, lokacija: 'Sarajevo - Koševo', slika: 'https://images.unsplash.com/photo-1595435934249-5df7ed86e1c0?q=80&w=500' },
-  { id: "4", naziv: 'Sportski Centar Ilidža', sport: 'Fudbal', cijena: 50, lokacija: 'Sarajevo - Ilidža', slika: 'https://images.unsplash.com/photo-1575361204480-aadea25e6e68?q=80&w=500' },
-  { id: "5", naziv: 'Vistafon Park', sport: 'Košarka', cijena: 30, lokacija: 'Sarajevo - Otoka', slika: 'https://images.unsplash.com/photo-1519766304817-4f37bda74a27?q=80&w=500' }
+  { id: "1", naziv: 'Zlatni Teren Otoka', sport: 'Fudbal', cijena: 40, lokacija: 'Sarajevo - Otoka', slika: '/images/teren1.jpg' },
+  { id: "2", naziv: 'Premium Arena Skenderija', sport: 'Košarka', cijena: 35, lokacija: 'Sarajevo - Centar', slika: '/images/teren2.jpg' },
+  { id: "3", naziv: 'Olimpijski Zemljani Teren', sport: 'Tenis', cijena: 25, lokacija: 'Sarajevo - Koševo', slika: '/images/teren3.jpg' },
+  { id: "4", naziv: 'Sportski Centar Ilidža', sport: 'Fudbal', cijena: 50, lokacija: 'Sarajevo - Ilidža', slika: '/images/teren4.jpg' },
+  { id: "5", naziv: 'Vistafon Park', sport: 'Košarka', cijena: 30, lokacija: 'Sarajevo - Otoka', slika: '/images/teren5.jpg' }
 ];
 
 export default function Tereni() {
