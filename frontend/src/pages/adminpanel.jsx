@@ -10,8 +10,8 @@ export default function AdminPanel() {
   // Učitavanje i poruka i rezervacija sa JSON-Servera
   useEffect(() => {
     Promise.all([
-      fetch('http://localhost:5000/poruke').then(res => res.json()),
-      fetch('http://localhost:5000/rezervacije').then(res => res.json())
+      fetch('api/poruke').then(res => res.json()),
+      fetch('api/rezervacije').then(res => res.json())
     ])
     .then(([podaciPoruke, podaciRezervacije]) => {
       setPoruke(podaciPoruke);
@@ -27,7 +27,7 @@ export default function AdminPanel() {
   // Funkcija za brisanje poruke
   const obrisiPoruku = (id) => {
     if (window.confirm('Da li ste sigurni da želite obrisati ovu poruku?')) {
-      fetch(`http://localhost:5000/poruke/${id}`, { method: 'DELETE' })
+      fetch(`api/poruke/${id}`, { method: 'DELETE' })
         .then(res => {
           if (res.ok) setPoruke(poruke.filter(p => p.id !== id));
         });
@@ -37,7 +37,7 @@ export default function AdminPanel() {
   // Funkcija za otkazivanje/brisanje rezervacije (CRUD - Delete)
   const otkaziRezervaciju = (id) => {
     if (window.confirm('Da li ste sigurni da želite otkazati i obrisati ovu rezervaciju?')) {
-      fetch(`http://localhost:5000/rezervacije/${id}`, { method: 'DELETE' })
+      fetch(`api/rezervacije/${id}`, { method: 'DELETE' })
         .then(res => {
           if (res.ok) setRezervacije(rezervacije.filter(r => r.id !== id));
         });

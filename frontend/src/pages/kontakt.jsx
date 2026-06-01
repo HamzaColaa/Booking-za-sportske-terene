@@ -54,7 +54,7 @@ export default function Kontakt() {
       setSuccessMessage(false);
     } else {
       // AKO JE SVE U REDU -> ŠALJEMO PODATKE NA BACKEND (Zahtjev 2.4 - nema mockova u memoriji)
-      fetch('http://localhost:5000/poruke', {
+      fetch('api/poruke', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
